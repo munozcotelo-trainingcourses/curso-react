@@ -15,7 +15,7 @@ interface ITodo {
 
 const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = ( props : IListaComponentProps ) => {
 
-    const misTodos : ITodo[] = [
+    const todos : ITodo[] = [
 
         { id : 1, name : "Venir a clase", completed : true },
         { id : 2, name : "Leer más", completed : false },
@@ -23,6 +23,33 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
         { id : 4, name : "Descansar en Navidad", completed : false },
 
     ];
+
+    function deleteTodoById( todoId : number ) : void {
+
+        const newTodos : ITodo[] = misTodos.filter( ( current : ITodo ) => {
+
+            return current.id !== todoId;
+
+        } );
+
+        setMisTodos( newTodos );
+
+    }
+
+    /* Con tipado */
+    const [ misTodos, setMisTodos ] : [ ITodo[], React.Dispatch<ITodo[] >] = React.useState<ITodo[]>( todos );
+
+    React.useEffect( () => {
+        console.info( "useEffect que se pinta siempre" );
+    } );
+
+    React.useEffect( () => {
+        console.info( "useEffect que se pinta SOLO la primera vez" );
+    }, [] );
+
+    React.useEffect( () => {
+        console.info( "useEffect que se pinta cuando cambia misTodos" );
+    }, [ misTodos] );
 
     return (
 
@@ -46,8 +73,14 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
                         name={ todo.name }
                         completed={ todo.completed }
                     >
-                            <BotonComponent texto="Delete button"/>
+                        <BotonComponent
+                            texto="Delete button"
+                        />
+
+                        <button onClick={ ( event : React.SyntheticEvent ) => deleteTodoById( todo.id ) }>Mi delete</button>
+
                     </ListaElementoComponent>
+
                 } )
 
             }
