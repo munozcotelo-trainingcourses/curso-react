@@ -15,10 +15,68 @@ interface IAppComponentProps {
 //   );
 // }
 
-class AppComponent extends React.Component<IAppComponentProps, Record<string, unknown>> {
+
+type MyStateType = {
+
+    counter : number;
+    random1 : number;
+    random2 : number;
+
+};
+
+class AppComponent extends React.Component<IAppComponentProps, MyStateType> {
+
+    public state: MyStateType = {
+
+        counter  : 0,
+        random1  : 0,
+        random2  : 0,
+
+    };
+
+    public constructor( props: IAppComponentProps ) {
+
+        super( props );
+
+        this.state = {
+
+            counter : 0,
+            random1 : 0,
+            random2 : 0,
+
+        };
+
+    }
 
     public componentDidMount() : void {
+
         console.info( "Estoy en componentDidMount" );
+
+        const me : AppComponent = this;
+
+        setInterval( () => {
+
+            me.setState( {
+
+                random1 : Math.random(),
+                random2 : Math.random(),
+
+            } );
+
+        }, 5000 );
+
+        setInterval( () => {
+
+            me.setState( ( currentState : MyStateType, props : IAppComponentProps ) => {
+
+                return {
+                    counter : currentState.counter + 5,
+                };
+
+            } );
+
+        }, 5000 );
+
     }
 
     public componentDidUpdate() : void {
@@ -31,7 +89,7 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
 
     public render(): React.ReactNode {
 
-        // const me: AppComponent = this;
+        const me: AppComponent = this;
 
         console.info( "Estoy en render" );
 
@@ -39,7 +97,13 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
             <div>
                 <CabeceraComponent
                     contenido="Hola mundo soy Alvaro"
+                    tiempo={ me.state.counter }
                 />
+
+                <div>
+                    <p>Valor aleatorio : { me.state.random1 }</p>
+                    <p>Contador : { me.state.counter } segundos </p>
+                </div>
 
                 <ListaComponent/>
 
