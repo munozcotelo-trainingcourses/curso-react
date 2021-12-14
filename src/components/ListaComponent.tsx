@@ -36,8 +36,21 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
 
     }
 
+    function changeCounter() : void {
+
+        setCounter( ( currentState : number ) => {
+            return currentState + 1;
+        } );
+    }
+
     /* Con tipado */
     const [ misTodos, setMisTodos ] : [ ITodo[], React.Dispatch<ITodo[] >] = React.useState<ITodo[]>( todos );
+
+    /* Atencion al tipado ahora es number | ( ( data : number ) => number ) */
+    const [ counter, setCounter ] : [ number, React.Dispatch<number | ( ( data : number ) => number )>] = React.useState<number>( 0 );
+
+    /* Atencion al tipado ahora es number | ( ( data : number ) => number ) */
+    const [ counterAuto, setCounterAuto ] : [ number, React.Dispatch<number | ( ( data : number ) => number )>] = React.useState<number>( 0 );
 
     React.useEffect( () => {
         console.info( "useEffect que se pinta siempre" );
@@ -45,15 +58,41 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
 
     React.useEffect( () => {
         console.info( "useEffect que se pinta SOLO la primera vez" );
+
+        const theInterval : any = setInterval( () => {
+            setCounterAuto( ( currentState : number ) => {
+                return currentState + 1;
+            } );
+        }, 1000 );
+
+        return () => {
+            /* Si no hacemos esto React nos mostrara un error */
+            console.info( "Cuando el componente se desmonte/muera, el intervalo se cancela" );
+            clearInterval( theInterval );
+        };
+
     }, [] );
 
     React.useEffect( () => {
-        console.info( "useEffect que se pinta cuando cambia misTodos" );
-    }, [ misTodos] );
+        console.info( "useEffect que se pinta cuando cambia misTodos o counter" );
+    }, [ misTodos, counter ] );
 
     return (
 
         <div>
+
+            <div>
+                <hr/>
+                <p>¿qué pasa si quiero actualizar mi estado con el valor del estado anterior?</p>
+                <p>Igual que en los componenentes de clase se tiene que utilizar la funcion de forma asincrona </p>
+                <p>Counter: { counter }</p>
+                <button onClick={ changeCounter }>Change counter</button>
+                <hr/>
+                <p>¡¡¡OJO!!! cuando se modifica el estado en un intervalo o timeout. <strong>Hay que limpiarlo</strong></p>
+                <p>Auto Counter: { counterAuto }</p>
+                <hr/>
+            </div>
+
             <table>
                 <thead>
                     <tr>
