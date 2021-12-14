@@ -3,6 +3,8 @@ import React from "react";
 
 import './App.css';
 
+import CabeceraComponent from "./components/CabeceraComponent.class";
+
 interface IAppComponentProps {
 }
 
@@ -33,7 +35,7 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
         console.info( "Estoy en render" );
 
         return (
-            <h1>Hola mundo soy Alvaro (componente de clase)</h1>
+            <CabeceraComponent/>
         );
 
     }
