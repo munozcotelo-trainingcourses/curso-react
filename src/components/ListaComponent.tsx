@@ -39,6 +39,7 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
 
                 misTodos.map( ( todo : ITodo ) => {
                     return <ListaElementoComponent
+                        key={ todo.id }
                         id={ todo.id }
                         name={ todo.name }
                         completed={ todo.completed }
