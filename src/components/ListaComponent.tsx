@@ -32,6 +32,7 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
                         <th>Id</th>
                         <th>Name</th>
                         <th>Completed</th>
+                        <th>Delete Action</th>
                     </tr>
                 </thead>
                     <tbody>
@@ -43,7 +44,9 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
                         id={ todo.id }
                         name={ todo.name }
                         completed={ todo.completed }
-                    />
+                    >
+                        <strong>Action</strong>
+                    </ListaElementoComponent>
                 } )
 
             }
