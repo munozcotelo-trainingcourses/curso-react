@@ -1,6 +1,7 @@
 import React from "react";
 
 import ListaElementoComponent from "./ListaElementoComponent";
+import BotonComponent         from "./BotonComponent";
 
 interface IListaComponentProps {
 }
@@ -45,7 +46,7 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
                         name={ todo.name }
                         completed={ todo.completed }
                     >
-                        <strong>Action</strong>
+                            <BotonComponent texto="Delete button"/>
                     </ListaElementoComponent>
                 } )
 
