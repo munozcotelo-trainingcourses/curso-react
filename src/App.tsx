@@ -5,6 +5,8 @@ import './App.css';
 
 import CabeceraComponent from "./components/CabeceraComponent.class";
 import ListaComponent    from "./components/ListaComponent";
+import EventosFuncion    from "./components/EventosFuncion";
+import EventosClase      from "./components/EventosClase.class";
 
 interface IAppComponentProps {
 }
@@ -42,6 +44,9 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
                 />
 
                 <ListaComponent/>
+
+                <EventosFuncion/>
+                <EventosClase/>
 
             </div>
 
