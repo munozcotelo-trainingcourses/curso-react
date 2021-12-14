@@ -35,7 +35,9 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
         console.info( "Estoy en render" );
 
         return (
-            <CabeceraComponent/>
+            <CabeceraComponent
+                contenido="Hola mundo soy Alvaro"
+            />
         );
 
     }
