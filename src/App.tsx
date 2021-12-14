@@ -4,6 +4,7 @@ import React from "react";
 import './App.css';
 
 import CabeceraComponent from "./components/CabeceraComponent.class";
+import CreaComponent     from "./components/CreaComponent.class";
 import ListaComponent    from "./components/ListaComponent";
 
 interface IAppComponentProps {
@@ -42,6 +43,10 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
                 />
 
                 <ListaComponent/>
+
+                <CreaComponent
+                    incremento={ 10 }
+                />
 
             </div>
 
