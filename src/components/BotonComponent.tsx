@@ -1,15 +1,19 @@
 import React from "react";
 
 interface IBotonComponentProps {
-    texto : string;
+
+    texto    : string;
+    callback : () => void;
+
 }
 
 const BotonComponent : ( props : IBotonComponentProps ) => React.ReactElement = ( props : IBotonComponentProps ) => {
 
     function handleClick( event: React.SyntheticEvent ) {
 
-        console.info( "click" );
-        console.info( "event", event );
+        props.callback();
+
+        event.preventDefault();
 
     }
 
@@ -24,4 +28,3 @@ const BotonComponent : ( props : IBotonComponentProps ) => React.ReactElement = 
 }
 
 export default BotonComponent;
-

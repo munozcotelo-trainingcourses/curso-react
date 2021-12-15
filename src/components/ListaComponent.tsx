@@ -73,11 +73,23 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
                         name={ todo.name }
                         completed={ todo.completed }
                     >
+
+                        {/* Primera forma de pasar el callback */}
+                        {/*
                         <BotonComponent
                             texto="Delete button"
+                            callback={ () => deleteTodoById( todo.id ) }
+                        />
+                        *}/
+                        {/* Segunda forma de pasar el callback */}
+                        <BotonComponent
+                            texto="Delete button"
+                            callback={ deleteTodoById.bind( null, todo.id ) }
                         />
 
+                        {/*
                         <button onClick={ ( event : React.SyntheticEvent ) => deleteTodoById( todo.id ) }>Mi delete</button>
+                        */}
 
                     </ListaElementoComponent>
 
