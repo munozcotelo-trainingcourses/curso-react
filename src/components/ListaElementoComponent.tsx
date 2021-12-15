@@ -2,10 +2,11 @@ import React from "react";
 
 interface IListaElementoComponentProps {
 
-    id        : number;
-    name      : string;
-    completed : boolean;
-    children  ?: React.ReactNode;
+    id             : number;
+    name           : string;
+    completed      : boolean;
+    deleteChild   ?: React.ReactNode;
+    completeChild ?: React.ReactNode;
 
 }
 
@@ -17,7 +18,8 @@ const ListaElementoComponent : ( props : IListaElementoComponentProps ) => React
             <th>{ props.id }</th>
             <th>{ props.name }</th>
             <th>{ ( props.completed === true ) ? "Sí (completado)" : "No (por completar)" }</th>
-            <th>{ ( props.children !== undefined ) ? props.children : "None" }</th>
+            <th>{ ( props.deleteChild !== undefined ) ? props.deleteChild : "None" }</th>
+            <th>{ ( props.completeChild !== undefined ) ? props.completeChild : "None" }</th>
         </tr>
 
     );

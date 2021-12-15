@@ -36,6 +36,22 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
 
     }
 
+    function completeTodoById( todoId : number ) : void {
+
+        const newTodos : ITodo[] = misTodos.map( ( current : ITodo ) => {
+
+            if ( current.id === todoId ) {
+                current.completed = !current.completed;
+            }
+
+            return current;
+
+        } );
+
+        setMisTodos( newTodos );
+
+    }
+
     /* Con tipado */
     const [ misTodos, setMisTodos ] : [ ITodo[], React.Dispatch<ITodo[] >] = React.useState<ITodo[]>( todos );
 
@@ -61,37 +77,24 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
                         <th>Name</th>
                         <th>Completed</th>
                         <th>Delete Action</th>
+                        <th>Complete Action</th>
                     </tr>
                 </thead>
                     <tbody>
             {
 
                 misTodos.map( ( todo : ITodo ) => {
-                    return <ListaElementoComponent
-                        key={ todo.id }
-                        id={ todo.id }
-                        name={ todo.name }
-                        completed={ todo.completed }
-                    >
+                    return  (
+                        <ListaElementoComponent
+                            key={ todo.id }
+                            id={ todo.id }
+                            name={ todo.name }
+                            completed={ todo.completed }
+                            deleteChild={ <BotonComponent texto="Delete button" callback={ deleteTodoById.bind( null, todo.id ) } /> }
+                            completeChild={ <BotonComponent texto="Complete button" callback={ completeTodoById.bind( null, todo.id ) } /> }
 
-                        {/* Primera forma de pasar el callback */}
-                        {/*
-                        <BotonComponent
-                            texto="Delete button"
-                            callback={ () => deleteTodoById( todo.id ) }
                         />
-                        *}/
-                        {/* Segunda forma de pasar el callback */}
-                        <BotonComponent
-                            texto="Delete button"
-                            callback={ deleteTodoById.bind( null, todo.id ) }
-                        />
-
-                        {/*
-                        <button onClick={ ( event : React.SyntheticEvent ) => deleteTodoById( todo.id ) }>Mi delete</button>
-                        */}
-
-                    </ListaElementoComponent>
+                    );
 
                 } )
 
