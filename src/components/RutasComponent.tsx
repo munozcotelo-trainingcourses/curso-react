@@ -5,7 +5,9 @@ import { NavLink }   from "react-router-dom";
 import { Outlet }    from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-import ListaComponent from "./ListaComponent";
+import AboutComponent   from "./AboutComponent";
+import CompanyComponent from "./CompanyComponent";
+import ListaComponent   from "./ListaComponent";
 
 interface IRutasComponentProps {
 }
@@ -48,6 +50,8 @@ const RutasComponent : ( props : IRutasComponentProps ) => React.ReactElement = 
                         <li><NavLink to="/nested/1">Ruta/1</NavLink></li>
                         <li><NavLink to="/nested/2">Ruta/2</NavLink></li>
                     */}
+                    <li><NavLink to="/about">About</NavLink></li>
+                    <li><NavLink to="/about/company">About the Company</NavLink></li>
                 </ul>
 
             </div>
@@ -62,6 +66,10 @@ const RutasComponent : ( props : IRutasComponentProps ) => React.ReactElement = 
 
                     <Route path="/nested" element = {<ComponentePadre/>}>
                         <Route path="/nested/:id" element = { <ComponenteHijo/> } />
+                    </Route>
+
+                    <Route path="/about" element = {<AboutComponent/>}>
+                        <Route path="/about/company" element = { <CompanyComponent/> } />
                     </Route>
 
                 </Routes>
