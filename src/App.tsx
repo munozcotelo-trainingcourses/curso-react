@@ -5,6 +5,7 @@ import './App.css';
 
 import CabeceraComponent from "./components/CabeceraComponent.class";
 import ListaComponent    from "./components/ListaComponent";
+import RutasComponent    from "./components/RutasComponent";
 
 interface IAppComponentProps {
 }
@@ -41,7 +42,7 @@ class AppComponent extends React.Component<IAppComponentProps, Record<string, un
                     contenido="Hola mundo soy Alvaro"
                 />
 
-                <ListaComponent/>
+                <RutasComponent/>
 
             </div>
 
