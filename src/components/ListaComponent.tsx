@@ -1,7 +1,8 @@
 import React from "react";
 
-import ListaElementoComponent from "./ListaElementoComponent";
 import BotonComponent         from "./BotonComponent";
+import CreaComponent          from "./CreaComponent.class";
+import ListaElementoComponent from "./ListaElementoComponent";
 
 interface IListaComponentProps {
 }
@@ -11,6 +12,10 @@ interface ITodo {
     id        : number;
     name      : string;
     completed : boolean;
+}
+
+function reducer( previous : number, current : ITodo ) : number {
+    return ( previous < current.id ) ? current.id : previous;
 }
 
 const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = ( props : IListaComponentProps ) => {
@@ -52,8 +57,34 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
 
     }
 
+    function createTodo( texto : string, completado : boolean ) : void {
+
+        setMisTodos( ( currentState : ITodo[] ) => {
+
+            const state : ITodo[] = JSON.parse( JSON.stringify( currentState ) );
+
+            const maxId  : number = currentState.reduce( reducer, -1 );
+            const nextId : number = maxId + 1;
+
+            const newTodo: ITodo = {
+
+                id        : nextId,
+                name      : texto,
+                completed : completado,
+
+            };
+
+
+            state.push( newTodo );
+
+            return state;
+
+        } );
+
+    }
+
     /* Con tipado */
-    const [ misTodos, setMisTodos ] : [ ITodo[], React.Dispatch<ITodo[] >] = React.useState<ITodo[]>( todos );
+    const [ misTodos, setMisTodos ] : [ ITodo[], React.Dispatch<ITodo[] | ( ( data : ITodo[] ) => ITodo[] ) >] = React.useState<ITodo[]>( todos );
 
     React.useEffect( () => {
         console.info( "useEffect que se pinta siempre" );
@@ -101,6 +132,13 @@ const ListaComponent : ( props : IListaComponentProps ) => React.ReactElement = 
             }
                     </tbody>
             </table>
+
+            <hr/>
+
+            <CreaComponent
+                incremento={ 10 }
+                callback={ createTodo }
+            />
 
       </div>
   );
